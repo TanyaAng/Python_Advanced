@@ -1,22 +1,27 @@
-numbers=sorted(list(map(int,input().split())))
-print(numbers)
-target_number=int(input())
-unique_pairs=set()
-iterations=0
+ll=list(map(int,input().split()))
+target=int(input())
+targets=set()
 
-while len(numbers)>1:
-    if numbers[0]+numbers[-1]==target_number:
-        unique_pairs.add((numbers[0],numbers[-1]))
-        print(f"{numbers[0]}+{numbers[-1]}={target_number}")
-        numbers.pop(0)
-        numbers.pop()
-        iterations+=1
-    elif numbers[0]+numbers[-1]>target_number:
-        numbers.pop()
-    elif numbers[0]+numbers[-1]<target_number:
-        numbers.pop(0)
+# map={}
+# for value in ll:
+#     if value in targets:
+#         p1=value
+#         p2=map[value]
+#         print(f"{p1} + {p2} = {target}")
+#     else:
+#         targets.add(target-value)
+#         map[target-value]=value
 
-print(iterations)
-[print(t) for t in unique_pairs]
+iteration=0
+for i1 in range(len(ll)):
+    for i2 in range (i1+1, len(ll)):
+        if ll[i1]+ll[i2]==target:
+            print(f"{ll[i1]} + {ll[i2]} = {target}")
+            targets.add((ll[i1],ll[i2]))
+        iteration += 1
+
+print(iteration)
+[print(v) for v in targets]
+
 
 
