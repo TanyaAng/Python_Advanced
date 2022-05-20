@@ -20,7 +20,7 @@ for i1 in range(len(ll)):
             targets.add((ll[i1],ll[i2]))
         iteration += 1
 
-print(iteration)
+print(f"Iterations done: {iteration}")
 [print(v) for v in targets]
 
 
