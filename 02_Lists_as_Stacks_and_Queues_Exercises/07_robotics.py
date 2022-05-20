@@ -5,7 +5,7 @@ robots = deque(input().split(";"))
 # create Time object
 hours, minutes, seconds = tuple(map(int, input().split(":")))
 start_time = datetime(year=1, month=1, day=1, hour=hours, minute=minutes, second=seconds)
-format = "%H:%M:%S"
+format_time = "%H:%M:%S"
 
 names = []
 process_time = []
@@ -21,7 +21,7 @@ for sec in range(1, robots_count + 1):
 current_time = start_time
 
 
-items=deque([])
+items=deque()
 item = input()
 while item!='End':
     items.append(item)
@@ -30,14 +30,15 @@ while item!='End':
 while items:
     current_item=items.popleft()
     current_time += timedelta(seconds=1)
-    is_found_free_robot=False
+    is_found_available_robot=False
     for i in range (robots_count):
-        if current_time == available_at[i]:
+        if current_time >= available_at[i]:
             available_at[i] += timedelta(seconds=process_time[i])
-            print(f"{names[i]} - {current_item} [{current_time.strftime(format)}]")
-            is_found_free_robot=True
+            print(f"{names[i]} - {current_item} [{current_time.strftime(format_time)}]")
+            is_found_available_robot=True
             break
-    if not is_found_free_robot:
+    if not is_found_available_robot:
         items.append(current_item)
+
 
 
