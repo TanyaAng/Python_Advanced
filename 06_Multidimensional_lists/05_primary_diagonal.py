@@ -37,9 +37,7 @@ def get_sum_secondary_diagonal(matrix):
     n = len(matrix)
     secondary_diagonal_sum = 0
     for i in range(n):
-        for j in range(n):
-            if i + j == n - 1:
-                secondary_diagonal_sum += matrix[i][j]
+        secondary_diagonal_sum += matrix[i][n-i-1]
     return secondary_diagonal_sum
 
 matrix=read_matrix()
