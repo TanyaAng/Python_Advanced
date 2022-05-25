@@ -1,9 +1,6 @@
 def read_matrix():
     n = int(input())
-    matrix = []
-    for i in range(n):
-        row = [x for x in list(input())]
-        matrix.append(row)
+    matrix = [list(input()) for _ in range(n)]
     return matrix
 
 def find_indexes_of_current_element(matrix, element):
