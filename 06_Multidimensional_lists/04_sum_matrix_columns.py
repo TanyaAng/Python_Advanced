@@ -13,7 +13,7 @@ test_input2='''3, 3
 7 8 9
 '''
 # sys.stdin=StringIO(test_input1)
-sys.stdin=StringIO(test_input2)
+# sys.stdin=StringIO(test_input2)
 
 def read_matrix():
     n,m=[int(x) for x in input().split(', ')]
@@ -23,14 +23,29 @@ def read_matrix():
         matrix.append(row)
     return matrix
 
-def sum_matrix_columns(matrix):
+#Variant 1
+def get_sum_matrix_columns(matrix):
     n=len(matrix)
     m=len(matrix[0])
+    columns_results=[0]*m
+    for row_index in range(n):
+        for col_index in range(m):
+                columns_results[col_index]+=matrix[row_index][col_index]
+    return columns_results
+
+#Variant 2
+def get_sum_matrix_columns_2(matrix):
+    n = len(matrix)
+    m = len(matrix[0])
+    columns_results = []
     for col_index in range(m):
-        result=0
+        columns_results.append(0)
         for row_index in range(n):
-            result+=matrix[row_index][col_index]
-        print(result)
+            columns_results[-1] += matrix[row_index][col_index]
+    return columns_results
+
 
 matrix=read_matrix()
-sum_matrix_columns(matrix)
+[print(x) for x in get_sum_matrix_columns(matrix)]
+
+
