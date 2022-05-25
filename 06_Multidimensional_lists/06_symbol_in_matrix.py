@@ -8,7 +8,6 @@ def find_indexes_of_current_element(matrix, element):
         for j in range(len(matrix)):
             if matrix[i][j]==element:
                 return (i,j)
-
     return f"{symbol} does not occur in the matrix"
 
 matrix=read_matrix()
