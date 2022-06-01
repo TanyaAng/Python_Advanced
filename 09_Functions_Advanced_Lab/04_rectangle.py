@@ -1,13 +1,12 @@
 def rectangle (length,width):
-    if not type(length)==int or not type(width)==int:
+    def area():
+        return length * width
+    def perimeter():
+        return 2 * length + 2 * width
+
+    if not isinstance(length,int) or not isinstance(width,int):
         return f"Enter valid values!"
-    return f"Rectangle area: {area(length,width)}\nRectangle perimeter: {perimeter(length,width)}"
-
-def area (length,width):
-    return length*width
-
-def perimeter(lenght, width):
-    return 2*lenght+2*width
+    return f"Rectangle area: {area()}\nRectangle perimeter: {perimeter()}"
 
 
 print(rectangle(2, 10))
