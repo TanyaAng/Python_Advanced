@@ -22,8 +22,7 @@ def calculate_targers(matrix):
 
 
 def print_matrix(matrix):
-    for row in matrix:
-        print(' '.join(row))
+    [print(' '.join(row)) for row in matrix]
 
 
 SIZE = 5
