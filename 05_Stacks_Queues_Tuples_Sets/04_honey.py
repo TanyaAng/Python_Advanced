@@ -1,39 +1,76 @@
 from collections import deque
-working_bees=deque([int(x) for x in input().split()])
-nectar=[int(x) for x in input().split()]
-honey_process=deque(input().split())
 
-honey_collected=0
-
-def collect_honey(bee,nectar,sign):
-    if sign=='+':
+def calculate_honey_made(bee,nectar,symbol):
+    if symbol=="+":
         return abs(bee+nectar)
-    elif sign=='-':
-        return abs(bee-nectar)
-    elif sign=='*':
+    elif symbol=='-':
+        return abs (bee-nectar)
+    elif symbol=='*':
         return abs(bee*nectar)
-    elif sign=='/':
-        return abs(bee/nectar)
+    elif symbol=='/':
+        if nectar!=0:
+            return abs(bee/nectar)
+        return 0
 
-while True:
-    if not working_bees:
-        break
-    if not nectar:
-        break
-    current_bee=working_bees.popleft()
-    current_nectar=nectar.pop()
-    if current_nectar>=current_bee:
-        sign=honey_process.popleft()
-        honey_collected+=collect_honey(current_bee,current_nectar,sign)
+bees=deque([int(x) for x in input().split()])
+nectars=[int(x) for x in input().split()]
+operations=deque(input().split())
+
+honey_made=0
+
+while bees and nectars:
+    bee=bees.popleft()
+    nectar=nectars.pop()
+    if nectar<bee:
+        bees.appendleft(bee)
+        continue
     else:
-        working_bees.appendleft(current_bee)
+        symbol=operations.popleft()
+        honey_made+=calculate_honey_made(bee,nectar,symbol)
+
+print(f"Total honey made: {honey_made}")
+if bees:
+    print(f"Bees left: {', '.join([str(x) for x in bees])}")
+if nectars:
+    print(f"Nectars left: {', '.join([str(x) for x in nectars])}")
 
 
-print(f"Total honey made: {honey_collected}")
-if working_bees:
-    print(f"Bees left: {', '.join([str(x) for x in working_bees])}")
-if nectar:
-    print(f"Nectar left: {', '.join([str(x) for x in nectar])}")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

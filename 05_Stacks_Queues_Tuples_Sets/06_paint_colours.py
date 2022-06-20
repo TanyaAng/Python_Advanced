@@ -1,54 +1,42 @@
-from collections import deque
+MAIN_COLOURS = {'red', 'yellow', 'blue'}
+SECONDARY_COLOURS = {'orange', 'purple', 'green'}
+found_colours = []
+not_found_colours=[]
+data = input().split()
+while data:
+    current_lenght = len(data)
+    middle = current_lenght // 2
+    first_item = data.pop(0)
+    last_item = ''
+    if data:
+        last_item = data.pop()
+    new_colours = {first_item + last_item, last_item + first_item}
 
-substrings = deque(input().split())
-collected_colours = []
-collected_secondary_colours = []
-
-MAIN_COLORS = ['red', 'yellow', 'blue']
-SECONDARY_COLORS = ['orange', 'purple', 'green']
-
-while substrings:
-    first_substring = substrings.popleft()
-    last_substring = ''
-    s_lenght = len(last_substring)
-    f_lenght = len(first_substring)
-    new_colour = first_substring
-    if substrings:
-        last_substring = substrings.pop()
-        s_lenght = len(last_substring)
-        left_concat = first_substring + last_substring
-        right_concat = last_substring + first_substring
-        if left_concat in MAIN_COLORS or left_concat in SECONDARY_COLORS:
-            new_colour = left_concat
-        elif right_concat in MAIN_COLORS or right_concat in SECONDARY_COLORS:
-            new_colour = right_concat
-
-    if new_colour in MAIN_COLORS or new_colour in SECONDARY_COLORS:
-        collected_colours.append(new_colour)
+    if MAIN_COLOURS.intersection(new_colours):
+        found_colours.append(MAIN_COLOURS.intersection(new_colours).pop())
+    elif SECONDARY_COLOURS.intersection(new_colours):
+        found_colours.append(SECONDARY_COLOURS.intersection(new_colours).pop())
     else:
-        first_substring = first_substring[0:f_lenght - 1]
-        if last_substring:
-            last_substring = last_substring[0:s_lenght - 1]
-        middle_of_expression = len(substrings) // 2
-        if len(substrings) % 2 != 0:
-            middle_of_expression -= 1
-        if first_substring != '' and last_substring != '':
-            substrings.insert(middle_of_expression, first_substring)
-            substrings.insert(middle_of_expression + 1, last_substring)
-        elif first_substring != '' and last_substring == '':
-            substrings.insert(middle_of_expression, first_substring)
-        elif first_substring == '' and last_substring != '':
-            substrings.insert(middle_of_expression, last_substring)
+        if first_item and last_item:
+            if len(first_item)>1:
+                first_item = first_item[0:-1]
+                data.insert(middle - 1, first_item)
+            if len(last_item)>1:
+                last_item = last_item[0:-1]
+                data.insert(middle-1, last_item)
 
-for colour in collected_colours:
-    if colour == 'orange':
-        if 'red' not in collected_colours or 'yellow' not in collected_colours:
-            collected_colours.remove(colour)
-    elif colour == 'purple':
-        if 'red' not in collected_colours or 'blue' not in collected_colours:
-            collected_colours.remove(colour)
-    elif colour == 'green':
-        if 'yellow' not in collected_colours or 'blue' not in collected_colours:
-            collected_colours.remove(colour)
+for current_colour in found_colours:
+    if current_colour == 'orange':
+        if 'red' not in found_colours or 'yellow' not in found_colours:
+            not_found_colours.append(current_colour)
+    elif current_colour == 'purple':
+        if 'red' not in found_colours or 'blue' not in found_colours:
+            not_found_colours.append(current_colour)
+    elif current_colour == 'green':
+        if 'yellow' not in found_colours or 'blue' not in found_colours:
+            not_found_colours.append(current_colour)
 
-print(collected_colours)
+for colour in not_found_colours:
+    found_colours.remove(colour)
+
+print(found_colours)
